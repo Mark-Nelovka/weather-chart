@@ -1,25 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Suspense, lazy } from "react";
+import { Route, Routes } from "react-router-dom";
+
+import WeatherHomePage from "./components/weatherHome";
+const WeatherDetails = lazy(
+  () =>
+    import(
+      "./components/weatherDetails" /* webpackChunkName: "WeatherDetails" */
+    )
+);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <Suspense fallback={"Loading..."}>
+        <Routes>
+          <Route path="/weather-chart" element={<WeatherHomePage />} />
+          <Route
+            path="/weather-chart/:city/details"
+            element={<WeatherDetails />}
+          />
+        </Routes>
+      </Suspense>
+    </main>
   );
 }
 
