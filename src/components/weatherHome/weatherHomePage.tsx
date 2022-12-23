@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import Brightness3Icon from "@mui/icons-material/Brightness3";
 import s from "./weatHome.module.css";
+console.log("test");
 
 export const WeatherHomePage = () => {
   const { pathname } = useLocation();
