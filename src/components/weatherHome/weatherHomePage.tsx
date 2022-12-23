@@ -69,7 +69,7 @@ export const WeatherHomePage = () => {
                   </Box>
                 </Box>
                 <Box className={s.containerButtonInfo}>
-                  <Link to={`${pathname}/Kyiv/details`}>
+                  <Link to={`${pathname}Kyiv/details`}>
                     <Button variant="contained">More info</Button>
                   </Link>
                 </Box>
