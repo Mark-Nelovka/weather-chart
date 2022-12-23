@@ -143,8 +143,8 @@ function MyChart() {
           renderSVG: () => (
             <defs>
               <linearGradient id="0" x1="0" x2="0" y1="1" y2="0">
-                <stop offset="0%" stopColor="#ff8f10" />
-                <stop offset="100%" stopColor="#ff3434" />
+                <stop offset="0%" stopColor="#17EAD9" />
+                <stop offset="100%" stopColor="#6078EA" />
               </linearGradient>
             </defs>
           ),

@@ -10,11 +10,17 @@ export default function ResizableBox({
   className = "",
 }) {
   return (
-    <div style={{ marginLeft: 20, marginBottom: 20 }}>
+    <div
+      style={{
+        marginLeft: 15,
+        paddingBottom: 20,
+      }}
+    >
       <div
         style={{
           display: "inline-block",
           width: "auto",
+
           background: "white",
           padding: ".5rem",
           borderRadius: "0.5rem",

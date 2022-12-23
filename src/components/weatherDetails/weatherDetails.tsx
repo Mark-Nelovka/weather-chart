@@ -19,23 +19,38 @@ export const WeatherDetails = () => {
             <Typography>Kyiv, Monday: 26 C</Typography>
             <Typography>14:15:17</Typography>
           </Box>
-          <Box className={s.detailContainerInfo}>
-            <Typography>Temperature: </Typography>
-            <Typography>Feels like: </Typography>
-            <Typography>Temperature_min: </Typography>
-            <Typography>Temperature_max: </Typography>
-            <Typography>Pressure: </Typography>
-            <Typography>Humidity: </Typography>
-            <Typography>Sea level: </Typography>
-            <Typography>Wind speed: </Typography>
-            <Typography>Wind direction: </Typography>
-            <Typography>Wind gust: </Typography>
-            <Typography>Clouds: </Typography>
-            <Typography>Country: </Typography>
-            <Typography>Sunrise: </Typography>
-            <Typography>Sunset: </Typography>
+          <Box className={s.globalContainer}>
+            <Box className={s.detailContainerCard}>
+              <Card className={s.detailContainerInfo}>
+                <Typography>Temperature: 26C</Typography>
+                <Typography>Feels like: 28C</Typography>
+                <Typography>Temperature_min: 24C</Typography>
+                <Typography>Temperature_max: 30C</Typography>
+                <Typography>Pressure: 1015 hPa</Typography>
+              </Card>
+              <Box className={s.detailContainerCenter}>
+                <Typography>Ukraine</Typography>
+                <Box className={s.timeContainer}>
+                  <Box>
+                    <Box className={s.boxSun}></Box>
+                    <Typography component={"span"}>7:00</Typography>
+                  </Box>
+                  <Box>
+                    <Box className={s.boxMoon}></Box>
+                    <Typography component={"span"}>18:00</Typography>
+                  </Box>
+                </Box>
+              </Box>
+              <Card className={s.detailContainerInfo}>
+                <Typography>Humidity: 64%</Typography>
+                <Typography>Sea level: 1015 hPa</Typography>
+                <Typography>Wind speed: 0.62 m/s</Typography>
+                <Typography>Wind direction: 349 deg</Typography>
+                <Typography>Wind gust: 1.18 m/s</Typography>
+              </Card>
+            </Box>
+            <MyChart />
           </Box>
-          <MyChart />
         </Card>
       </Container>
     </section>

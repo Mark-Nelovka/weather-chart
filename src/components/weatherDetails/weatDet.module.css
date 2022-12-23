@@ -14,6 +14,18 @@
     color: #fff;
 }
 
+.globalContainer {
+background-image: radial-gradient(circle at 50% -20.71%, #bae0e6 0, #bbe0e9 6.25%, #bcdfeb 12.5%, #bedfed 18.75%, #c0deef 25%, #c3ddf0 31.25%, #c6dcf1 37.5%, #c9dbf2 43.75%, #cddaf2 50%, #d1d9f2 56.25%, #d5d8f1 62.5%, #d9d7f0 68.75%, #ddd6ee 75%, #e1d5ed 81.25%, #e4d4ea 87.5%, #e8d3e8 93.75%, #ebd2e5 100%);
+}
+
+.detailContainerCard {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
 .detailContainerInfo {
     padding: 20px;
 }
@@ -22,10 +34,64 @@
     font-family: "Raleway";
     font-size: 20px;
     font-weight: bold;
-    letter-spacing: 1.1;
+    line-height: 1.8;
     color: #000;
 }
 
-.detailContainerInfo>p:not(:last-child) {
+.detailContainerCenter > p {
+        text-align: center;
+    font-family: "Raleway";
+    font-size: 34px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    line-height: 1.8;
+    color: #000;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.timeContainer {
+    display: flex;
+    align-items: center;
+}
+
+.timeContainer > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.timeContainer>div:not(:last-child) {
+    margin-right: 80px;
+}
+
+.timeContainer>div > span  {
+    font-family: "Raleway";
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1.1px;
+    color: #000;
+    display: inline-block;
+}
+
+.boxSun {
+    width: 60px;
+    height: 40px;
+    background-image: url("../../images/gif-sun.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     margin-bottom: 5px;
+}
+
+.boxMoon {
+    width: 60px;
+        height: 40px;
+    background-image: url("../../images/moon-gif.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: 5px;
+
 }
