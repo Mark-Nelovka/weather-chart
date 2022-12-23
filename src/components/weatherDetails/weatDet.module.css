@@ -1,0 +1,31 @@
+.detailCardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(29, 146, 255);
+    padding: 20px 30px;
+}
+
+.detailCardHeader > p {
+    font-family: "Raleway";
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1.1;
+    color: #fff;
+}
+
+.detailContainerInfo {
+    padding: 20px;
+}
+
+.detailContainerInfo > p {
+    font-family: "Raleway";
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1.1;
+    color: #000;
+}
+
+.detailContainerInfo>p:not(:last-child) {
+    margin-bottom: 5px;
+}

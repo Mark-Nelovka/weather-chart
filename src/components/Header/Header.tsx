@@ -1,15 +1,20 @@
 import { AppBar, Toolbar, Typography } from "@mui/material";
 
-interface IHeader {
-  title: string;
-}
-
-export const Header = ({ title }: IHeader) => {
+export const Header = () => {
   return (
-    <AppBar position="static" sx={{ mb: 4 }}>
+    <AppBar position="static">
       <Toolbar>
-        <Typography sx={{ textAlign: "center", width: "100%", fontSize: 24 }}>
-          {title}
+        <Typography
+          sx={{
+            fontFamily: "Raleway",
+            fontWeight: "bold",
+            textAlign: "center",
+            width: "100%",
+            fontSize: 28,
+            letterSpacing: 1.1,
+          }}
+        >
+          Welcome to weather website | Thanks that remember us
         </Typography>
       </Toolbar>
     </AppBar>
