@@ -1,0 +1,20 @@
+.searchContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+
+}
+
+.searchForm {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.searchButtonCity {
+    color: #fff;
+    font-family: "Raleway";
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 15px;
+}
