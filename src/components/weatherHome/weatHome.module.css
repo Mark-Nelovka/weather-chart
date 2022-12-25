@@ -22,6 +22,14 @@ section {
     padding: 20px;
 }
 
+.cardClouds {
+    background-image: url("../../images/Clouds-gif.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 20px;
+}
+
 .cardTitle {
     font-family: "Raleway";
     font-size: 28px;
@@ -33,7 +41,7 @@ section {
 
 .cardSubTitle {
     font-family: "Raleway";
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     letter-spacing: 1.2;
     color: #fff;
@@ -45,7 +53,7 @@ section {
 .containerInfo {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .containerItemsInfo {
@@ -57,7 +65,7 @@ section {
 
 .containerItemsInfo > span {
     font-family: "Raleway";
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     color: white;
 
@@ -65,54 +73,13 @@ section {
     width: 50px;
 }
 
-.animationContainer {
-    width: 80px;
-    height: 45px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
-
-.sun1 {
-    position: relative;
-    opacity: 0;
-    right: -34%;
-    top: 20px;
-    color: yellow;
-    border-radius: 50%;
-    animation: 10s infinite linear sun;
-}
-
-.sun2 {
-    position: relative;
-    opacity: 0;
-    left: 36%;
-    top: 20px;
-    border-radius: 50%;
-    animation: 10s infinite linear moon;
-}
-
-@keyframes sun {
-
-    from {
-    opacity: 0.1;
-    }
-
-    to {
-        opacity: 1;
-        top: 0;
-    }
-}
-
-@keyframes moon {
-    from {
-        opacity: .1;
-    }
-
-    to {
-        opacity: 1;
-        top: 0;
-    }
-
+.currentTimeContainer {
+    font-family: "Raleway";
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .containerButtonInfo {

@@ -1,5 +1,5 @@
 export interface IWeatherProps {
-    city: string
+    cityForSearch: string
 }
 
 export interface IGeolocProps {

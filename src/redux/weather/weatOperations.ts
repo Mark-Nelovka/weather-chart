@@ -1,17 +1,23 @@
 import axios from 'axios';
-import { createAction } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { getCurrentWeather } from '../../components/API';
+import getCurrentDate from '../../General/getCurrentDate';
 
 axios.defaults.baseURL = '';
 
+interface IProps {
+    cityForSearch: string
+}
 
-
-// const getCity = createAsyncThunk('weather/getCity', async (item, thunkApi) => {
-//     console.log(item)
-//     console.log(thunkApi)
-// });
-
-const getCity = createAction("weather/getCity")
-
-
+const getCity = createAsyncThunk('weather/getCity', async (item: IProps, thunkApi) => {
+    let data = await getCurrentWeather(item);
+    const currentDate = getCurrentDate(data.sys.country);
+    data = {
+        ...data,
+        currentDate
+    }
+    console.log(data)
+    return data;
+});
 
 export {getCity};

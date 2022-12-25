@@ -5,7 +5,7 @@ import s from "./Form.module.css";
 export const FormSearchCity = ({
   getWeatherCity,
   changeInputValue,
-  city,
+  cityForSearch,
 }: IFormProps) => {
   return (
     <Box className={s.searchContainer}>
@@ -18,7 +18,7 @@ export const FormSearchCity = ({
           id="outlined-basic"
           label="Write city"
           variant="outlined"
-          value={city}
+          value={cityForSearch}
           size="small"
           onChange={changeInputValue}
         />

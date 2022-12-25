@@ -1,15 +1,11 @@
 import axios from "axios";
 import { IWeatherProps } from "../../interfaces/API";
-import getGeolication from "./getGeolocation";
-
 
 const {REACT_APP_API_KEY} = process.env;
 
-export default async function getCurrentWeather({ city }: IWeatherProps) {
+export default async function getCurrentWeather({ cityForSearch }: IWeatherProps) {
     try {
-        const goordinats = await getGeolication({ city });
-        const weatherInCity = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${goordinats.lat}&lon=${goordinats.lon}&appid=${REACT_APP_API_KEY}`);
-        // console.log(weatherInCity)
+        const weatherInCity = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityForSearch}&appid=${REACT_APP_API_KEY}&units=metric`);
         return weatherInCity.data;
     } catch (error) {
         console.log(error);

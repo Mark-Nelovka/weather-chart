@@ -3,20 +3,22 @@ import { Container } from "@mui/system";
 import { Link, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import FormSearchCity from "../Form";
-import { getCurrentWeather } from "../API";
-import getCurrentDate from "../../General/getCurrentDate";
 import s from "./weatHome.module.css";
 import { StyledEngineProvider } from "@mui/material/styles";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { getCity } from "../../redux/weather/weatOperations";
 
 export const WeatherHomePage = () => {
-  const [city, setCity] = useState<string>("");
-  const [countryList, setCountryList] = useState(["IT", "GB"]);
+  const [cityForSearch, setCity] = useState<string>("");
+  const item = useAppSelector((state) => state.weather);
+
   const { pathname } = useLocation();
+  const dispatch = useAppDispatch();
 
   const getWeatherCity = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const res = await getCurrentWeather({ city });
-    console.log(res);
+    dispatch(getCity({ cityForSearch }));
+    setCity("");
   };
 
   const changeInputValue = (event: React.ChangeEvent) => {
@@ -24,9 +26,9 @@ export const WeatherHomePage = () => {
     setCity(value);
   };
 
-  useEffect(() => {
-    const dt = getCurrentDate({ countryList });
-  }, [countryList]);
+  // useEffect(() => {
+  //   const dt = getCurrentDate("GB");
+  // }, [countryList]);
 
   return (
     <StyledEngineProvider injectFirst>
@@ -34,56 +36,75 @@ export const WeatherHomePage = () => {
         <FormSearchCity
           getWeatherCity={getWeatherCity}
           changeInputValue={changeInputValue}
-          city={city}
+          cityForSearch={cityForSearch}
         />
         <Container>
           <Box sx={{ width: "100%" }}>
             <Grid container rowSpacing={2} columnSpacing={{ md: 5 }}>
-              <Grid item md={3}>
-                <Paper className={s.cardRain} elevation={2}>
-                  <Typography className={s.cardTitle}>Kyiv</Typography>
-                  <Typography className={s.cardSubTitle}>
-                    Monday: 23.12.22
-                  </Typography>
-                  <Box className={s.containerInfo}>
-                    <Box className={s.containerItemsInfo}>
-                      <Typography component={"span"}>-2</Typography>
-                      <Typography
-                        sx={{
-                          mt: 1,
-                          fontFamily: "Raleway",
-                          fontWeight: "bold",
-                          letterSpacing: 1.2,
-                          fontSize: 12,
-                          color: "#fff",
-                        }}
+              {item.weather.length > 0 &&
+                item.weather.map(({ name, main, currentDate, weather }) => {
+                  return (
+                    <Grid item md={3} key={name}>
+                      <Paper
+                        className={
+                          weather[0].main === "Rain" ? s.cardRain : s.cardClouds
+                        }
+                        elevation={2}
                       >
-                        Min
-                      </Typography>
-                    </Box>
-                    <Box className={s.containerItemsInfo}>
-                      <Typography component={"span"}>5</Typography>
-                      <Typography
-                        sx={{
-                          mt: 1,
-                          fontFamily: "Raleway",
-                          fontWeight: "bold",
-                          letterSpacing: 1.2,
-                          fontSize: 12,
-                          color: "#fff",
-                        }}
-                      >
-                        Max
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Box className={s.containerButtonInfo}>
-                    <Link to={`${pathname}/Kyiv/details`}>
-                      <Button variant="contained">More info</Button>
-                    </Link>
-                  </Box>
-                </Paper>
-              </Grid>
+                        <Typography className={s.cardTitle}>{name}</Typography>
+                        <Typography className={s.cardSubTitle}>
+                          {currentDate.dayInWeek}:
+                          {` ${currentDate.day}.${currentDate.mounth}.${currentDate.year}`}
+                        </Typography>
+                        <Box className={s.containerInfo}>
+                          <Box className={s.containerItemsInfo}>
+                            <Typography component={"span"}>
+                              {Math.floor(main.temp_min)}
+                            </Typography>
+                            <Typography
+                              sx={{
+                                mt: 1,
+                                fontFamily: "Raleway",
+                                fontWeight: "bold",
+                                letterSpacing: 1.2,
+                                fontSize: 12,
+                                color: "#fff",
+                              }}
+                            >
+                              Min
+                            </Typography>
+                          </Box>
+                          <Box className={s.containerItemsInfo}>
+                            <Typography component={"span"}>
+                              {Math.floor(main.temp_max)}
+                            </Typography>
+                            <Typography
+                              sx={{
+                                mt: 1,
+                                fontFamily: "Raleway",
+                                fontWeight: "bold",
+                                letterSpacing: 1.2,
+                                fontSize: 12,
+                                color: "#fff",
+                              }}
+                            >
+                              Max
+                            </Typography>
+                          </Box>
+                        </Box>
+                        <Typography className={s.currentTimeContainer}>
+                          Current time:
+                          {` ${currentDate.hours}:${currentDate.minutes}`}
+                        </Typography>
+                        <Box className={s.containerButtonInfo}>
+                          <Link to={`${pathname}/Kyiv/details`}>
+                            <Button variant="contained">More info</Button>
+                          </Link>
+                        </Box>
+                      </Paper>
+                    </Grid>
+                  );
+                })}
             </Grid>
           </Box>
         </Container>

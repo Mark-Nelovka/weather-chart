@@ -4,10 +4,10 @@ import { IWeatherProps } from "../../interfaces/API";
 const {REACT_APP_API_KEY} = process.env;
 
 
-export default async function getGeolication({city}: IWeatherProps) {
+export default async function getGeolication({cityForSearch}: IWeatherProps) {
     try {
-        const itemForGetLocationData = await axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${REACT_APP_API_KEY}`);
-        // console.log(itemForGetLocationData)
+        const itemForGetLocationData = await axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${cityForSearch}&limit=1&appid=${REACT_APP_API_KEY}`);
+        console.log(itemForGetLocationData)
         return itemForGetLocationData.data[0];
     } catch (error) {
         console.log(error)
