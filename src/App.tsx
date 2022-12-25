@@ -18,10 +18,7 @@ function App() {
         <Suspense fallback={"Loading..."}>
           <Routes>
             <Route path="/weather-chart" element={<WeatherHomePage />} />
-            <Route
-              path="/weather-chart/:city/details"
-              element={<WeatherDetails />}
-            />
+            <Route path="/weather-chart/:city" element={<WeatherDetails />} />
           </Routes>
         </Suspense>
       </main>

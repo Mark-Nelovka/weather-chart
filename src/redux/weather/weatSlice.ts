@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getCity } from "./weatOperations";
+import { getCity, updateTimeAllCity, updateCity, deleteCity } from "./weatOperations";
 
 export interface IItems {
+  id: number,
   coord: {
     lat: number,
     lon: number
@@ -38,6 +39,7 @@ export interface IItems {
     minutes: number,
     dayInWeek: string
   }
+  dtCreated: number
 }
 
 export interface IState {
@@ -53,10 +55,33 @@ const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getCity.fulfilled,(state: IState, action: PayloadAction<IItems>) => {
+    builder.addCase(getCity.fulfilled, (state: IState, action: PayloadAction<IItems>) => {
+      const repeteCity = state.weather.find(city => city.id === action.payload.id);
+      if (repeteCity) {
+        return;
+      }
       state.weather = [...state.weather, action.payload];
-    })
+    });
+    builder.addCase(updateTimeAllCity.fulfilled, (state: IState, action: PayloadAction<IItems[]>) => {
+      action.payload.forEach((city) => {
+        const findIndexUpdateCity = state.weather.findIndex(el => el.id === city.id);
+        if (findIndexUpdateCity > -1) {
+          state.weather.splice(findIndexUpdateCity, 1, city)
+        }
+      })
+    });
+    builder.addCase(updateCity.fulfilled, (state: IState, action: PayloadAction<IItems>) => {
+      const findCityUpdate = state.weather.findIndex(el => el.id === action.payload.id);
+      if (findCityUpdate > -1) {
+        state.weather.splice(findCityUpdate, 1, action.payload)
+      }
+    });
+    builder.addCase(deleteCity.fulfilled, (state: IState, action: PayloadAction<string>) => {
+      const filteredCity = state.weather.filter(el => el.id !== +action.payload);
+      state.weather = filteredCity;
+  });
   },
+  
 });
 
 export default authSlice.reducer;

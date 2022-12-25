@@ -22,6 +22,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, weatherReducer);
 
+
 const store = configureStore({
   reducer: {
     weather: persistedReducer,

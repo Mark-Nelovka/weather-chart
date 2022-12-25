@@ -2,8 +2,27 @@ import { Card, Box, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import s from "./weatDet.module.css";
 import MyChart from "../Chart/Chart";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import {
+  getCityWithDetails,
+  cleanStore,
+} from "../../redux/weatherDetails/weatDetOperations";
 
 export const WeatherDetails = () => {
+  const cityWithState = useAppSelector((state) => state.weatherDetails);
+
+  const params = useParams();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getCityWithDetails({ cityForSearch: params.city! }));
+    return () => {
+      dispatch(cleanStore());
+    };
+  }, [params, dispatch]);
+
   return (
     <section
       style={{
@@ -15,42 +34,61 @@ export const WeatherDetails = () => {
     >
       <Container>
         <Card>
-          <Box className={s.detailCardHeader}>
-            <Typography>Kyiv, Monday: 26 C</Typography>
-            <Typography>14:15:17</Typography>
-          </Box>
-          <Box className={s.globalContainer}>
-            <Box className={s.detailContainerCard}>
-              <Card className={s.detailContainerInfo}>
-                <Typography>Temperature: 26C</Typography>
-                <Typography>Feels like: 28C</Typography>
-                <Typography>Temperature_min: 24C</Typography>
-                <Typography>Temperature_max: 30C</Typography>
-                <Typography>Pressure: 1015 hPa</Typography>
-              </Card>
-              <Box className={s.detailContainerCenter}>
-                <Typography>Ukraine</Typography>
-                <Box className={s.timeContainer}>
-                  <Box>
-                    <Box className={s.boxSun}></Box>
-                    <Typography component={"span"}>7:00</Typography>
+          {cityWithState.weatherDetails.length > 0 &&
+            cityWithState.weatherDetails.map((state) => {
+              return (
+                <Box key={state.id}>
+                  <Box className={s.detailCardHeader}>
+                    <Typography>
+                      {`${state.currentDate.dayInWeek}:
+               ${Math.floor(state.main.temp)}
+              ${" C"}`}
+                    </Typography>
+                    <Typography>{`${state.currentDate.hours}:${state.currentDate.minutes}`}</Typography>
                   </Box>
-                  <Box>
-                    <Box className={s.boxMoon}></Box>
-                    <Typography component={"span"}>18:00</Typography>
+                  <Box className={s.globalContainer}>
+                    <Box className={s.detailContainerCard}>
+                      <Card className={s.detailContainerInfo}>
+                        <Typography>
+                          Temperature: {Math.floor(state.main.temp)} C
+                        </Typography>
+                        <Typography>
+                          Feels like: {Math.floor(state.main.feels_like)} C
+                        </Typography>
+                        <Typography>
+                          Temperature_min: {Math.floor(state.main.temp_min)} C
+                        </Typography>
+                        <Typography>
+                          Temperature_max: {Math.floor(state.main.temp_max)} C
+                        </Typography>
+                        <Typography>
+                          Pressure: {Math.floor(state.main.pressure)} hPa
+                        </Typography>
+                      </Card>
+                      <Box className={s.detailContainerCenter}>
+                        <Typography>{state.name}</Typography>
+                      </Box>
+                      <Card className={s.detailContainerInfo}>
+                        <Typography>
+                          Humidity: {state.main.humidity} %
+                        </Typography>
+                        <Typography>
+                          Wind speed: {state.wind.speed} m/s
+                        </Typography>
+                        <Typography>
+                          Wind direction: {state.wind.deg} deg
+                        </Typography>
+                        <Typography>
+                          Wind gust: {state.wind.gust} m/s
+                        </Typography>
+                        <Typography>Clouds: {state.clouds.all} %</Typography>
+                      </Card>
+                    </Box>
+                    <MyChart historyData={state.history} />
                   </Box>
                 </Box>
-              </Box>
-              <Card className={s.detailContainerInfo}>
-                <Typography>Humidity: 64%</Typography>
-                <Typography>Sea level: 1015 hPa</Typography>
-                <Typography>Wind speed: 0.62 m/s</Typography>
-                <Typography>Wind direction: 349 deg</Typography>
-                <Typography>Wind gust: 1.18 m/s</Typography>
-              </Card>
-            </Box>
-            <MyChart />
-          </Box>
+              );
+            })}
         </Card>
       </Container>
     </section>

@@ -2,117 +2,35 @@ import ResizableBox from "../../RezizableBox";
 import React from "react";
 import { AxisOptions, Chart } from "react-charts";
 
-type MyDatum = { date: string; stars: number };
+type MyDatum = { date: string; temp: number };
 
-function MyChart() {
-  const data = [
-    {
-      label: "Temperature in this hour",
-      data: [
-        {
-          date: "00",
-          stars: 3,
-        },
-        {
-          date: "1",
-          stars: 3,
-        },
-        {
-          date: "2",
-          stars: 2,
-        },
-        {
-          date: "3",
-          stars: 2,
-        },
-        {
-          date: "4",
-          stars: 3,
-        },
-        {
-          date: "5",
-          stars: 2,
-        },
-        {
-          date: "6",
-          stars: 3,
-        },
-        {
-          date: "7",
-          stars: 0,
-        },
-        {
-          date: "8",
-          stars: -1,
-        },
-        {
-          date: "9",
-          stars: 2,
-        },
-        {
-          date: "10",
-          stars: 3,
-        },
-        {
-          date: "11",
-          stars: 1,
-        },
-        {
-          date: "12",
-          stars: -2,
-        },
-        {
-          date: "13",
-          stars: 0,
-        },
-        {
-          date: "14",
-          stars: 4,
-        },
-        {
-          date: "15",
-          stars: 1,
-        },
-        {
-          date: "16",
-          stars: 2,
-        },
-        {
-          date: "17",
-          stars: 3,
-        },
-        {
-          date: "19",
-          stars: 1,
-        },
-        {
-          date: "19",
-          stars: 2,
-        },
-        {
-          date: "20",
-          stars: -1,
-        },
-        {
-          date: "21",
-          stars: 0,
-        },
-        {
-          date: "22",
-          stars: 3,
-        },
-        {
-          date: "23",
-          stars: -1,
-        },
-      ],
-    },
-  ];
+interface IChartProps {
+  historyData: {
+    main: {
+      temp: number;
+    };
+  }[];
+}
+
+function MyChart({ historyData }: IChartProps) {
+  console.log(historyData);
+  const dataTest: MyDatum[] = [];
+  historyData.reduce((acc: number, el) => {
+    if (acc === 24) {
+      return acc;
+    }
+
+    dataTest.push({ date: String(acc), temp: el.main.temp });
+
+    return acc + 1;
+  }, 1);
+
+  const data = [{ data: dataTest }];
 
   const secondaryAxes = React.useMemo(
     (): AxisOptions<MyDatum>[] => [
       {
-        getValue: (datum) => datum.stars,
+        getValue: (datum) => datum.temp,
         elementType: "line",
       },
     ],
@@ -121,7 +39,7 @@ function MyChart() {
 
   const primaryAxis = React.useMemo(
     (): AxisOptions<MyDatum> => ({
-      getValue: (datum) => datum.date + " h",
+      getValue: (datum) => datum.date,
     }),
     []
   );
@@ -133,16 +51,16 @@ function MyChart() {
           data,
           primaryAxis,
           secondaryAxes,
-          interactionMode: "primary",
-          getSeriesStyle: (series) => {
-            return {
-              color: `url(#${series.index % 4})`,
-              opacity: 1,
-            };
-          },
+          // interactionMode: "primary",
+          // getSeriesStyle: (series) => {
+          //   return {
+          //     color: `url(#${series.index % 4})`,
+          //     opacity: 1,
+          //   };
+          // },
           renderSVG: () => (
             <defs>
-              <linearGradient id="0" x1="0" x2="0" y1="1" y2="0">
+              <linearGradient id="1" x1="0" x2="0" y1="1" y2="0">
                 <stop offset="0%" stopColor="#17EAD9" />
                 <stop offset="100%" stopColor="#6078EA" />
               </linearGradient>

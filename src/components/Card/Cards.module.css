@@ -1,0 +1,140 @@
+.cardSun {
+    position: relative;
+    padding: 20px;
+    background-image: url("../../images/gif-sun.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.cardRain {
+    position: relative;
+    background-image: url("../../images/gif-rain.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 20px;
+}
+
+.cardClouds {
+    position: relative;
+    background-image: url("../../images/Clouds-gif.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 20px;
+}
+
+.cardClear {
+    position: relative;
+    /* background-image: url("../../images/Clouds-gif.gif"); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 20px;
+}
+
+.deleteButton {
+    position: absolute;
+    top: 7px;
+    right: 5px;
+    max-width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+.deleteButton:hover {
+    background-color: rgb(243, 93, 93);
+}
+
+.deleteButton>svg {
+    fill: red;
+    font-size: 17px;
+}
+
+.deleteButton:hover>svg {
+    fill: white;
+}
+
+.cardTitleSun {
+    font-family: "Raleway";
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 1.2;
+    color: #000;
+    text-align: center;
+}
+
+.cardTitle {
+    font-family: "Raleway";
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 1.2px;
+    color: #fff;
+    text-align: center;
+}
+
+.cardSubTitle {
+    font-family: "Raleway";
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1.1px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 4px;
+
+}
+
+.containerInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.containerItemsInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.containerItemsInfo>span {
+    font-family: "Raleway";
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+
+    text-align: center;
+    width: 50px;
+}
+
+.currentTimeContainer {
+    font-family: "Raleway";
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.containerButtonInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.containerButtonInfo>a {
+    color: #fff;
+    text-decoration: none;
+    font-family: "Raleway";
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.containerButtonInfo>a>button {
+    padding: 5px 17px;
+}

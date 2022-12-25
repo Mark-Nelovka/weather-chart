@@ -1,12 +1,19 @@
-import { Grid, Box, Paper, Typography, Button } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import { Container } from "@mui/system";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import FormSearchCity from "../Form";
 import s from "./weatHome.module.css";
 import { StyledEngineProvider } from "@mui/material/styles";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
-import { getCity } from "../../redux/weather/weatOperations";
+import {
+  getCity,
+  updateTimeAllCity,
+  updateCity,
+  deleteCity,
+} from "../../redux/weather/weatOperations";
+import getCurrentTime from "../../Heplers/getCurrentTime";
+import Cards from "../Card";
 
 export const WeatherHomePage = () => {
   const [cityForSearch, setCity] = useState<string>("");
@@ -26,13 +33,26 @@ export const WeatherHomePage = () => {
     setCity(value);
   };
 
-  // useEffect(() => {
-  //   const dt = getCurrentDate("GB");
-  // }, [countryList]);
+  const updateCityHandle = (event: React.MouseEvent) => {
+    const { id } = event.currentTarget as HTMLButtonElement;
+    dispatch(updateCity(id));
+  };
+
+  const deleteCityHandle = (event: React.MouseEvent) => {
+    const { id } = event.currentTarget as HTMLButtonElement;
+    dispatch(deleteCity(id));
+  };
+
+  useEffect(() => {
+    const dt = getCurrentTime(item.weather);
+    if (dt.length > 0) {
+      dispatch(updateTimeAllCity({ itemAll: item.weather, dt }));
+    }
+  }, [dispatch, item]);
 
   return (
     <StyledEngineProvider injectFirst>
-      <section>
+      <section className={s.section}>
         <FormSearchCity
           getWeatherCity={getWeatherCity}
           changeInputValue={changeInputValue}
@@ -42,67 +62,14 @@ export const WeatherHomePage = () => {
           <Box sx={{ width: "100%" }}>
             <Grid container rowSpacing={2} columnSpacing={{ md: 5 }}>
               {item.weather.length > 0 &&
-                item.weather.map(({ name, main, currentDate, weather }) => {
+                item.weather.map((city) => {
                   return (
-                    <Grid item md={3} key={name}>
-                      <Paper
-                        className={
-                          weather[0].main === "Rain" ? s.cardRain : s.cardClouds
-                        }
-                        elevation={2}
-                      >
-                        <Typography className={s.cardTitle}>{name}</Typography>
-                        <Typography className={s.cardSubTitle}>
-                          {currentDate.dayInWeek}:
-                          {` ${currentDate.day}.${currentDate.mounth}.${currentDate.year}`}
-                        </Typography>
-                        <Box className={s.containerInfo}>
-                          <Box className={s.containerItemsInfo}>
-                            <Typography component={"span"}>
-                              {Math.floor(main.temp_min)}
-                            </Typography>
-                            <Typography
-                              sx={{
-                                mt: 1,
-                                fontFamily: "Raleway",
-                                fontWeight: "bold",
-                                letterSpacing: 1.2,
-                                fontSize: 12,
-                                color: "#fff",
-                              }}
-                            >
-                              Min
-                            </Typography>
-                          </Box>
-                          <Box className={s.containerItemsInfo}>
-                            <Typography component={"span"}>
-                              {Math.floor(main.temp_max)}
-                            </Typography>
-                            <Typography
-                              sx={{
-                                mt: 1,
-                                fontFamily: "Raleway",
-                                fontWeight: "bold",
-                                letterSpacing: 1.2,
-                                fontSize: 12,
-                                color: "#fff",
-                              }}
-                            >
-                              Max
-                            </Typography>
-                          </Box>
-                        </Box>
-                        <Typography className={s.currentTimeContainer}>
-                          Current time:
-                          {` ${currentDate.hours}:${currentDate.minutes}`}
-                        </Typography>
-                        <Box className={s.containerButtonInfo}>
-                          <Link to={`${pathname}/Kyiv/details`}>
-                            <Button variant="contained">More info</Button>
-                          </Link>
-                        </Box>
-                      </Paper>
-                    </Grid>
+                    <Cards
+                      city={city}
+                      deleteCityHandle={deleteCityHandle}
+                      updateCityHandle={updateCityHandle}
+                      pathname={pathname}
+                    />
                   );
                 })}
             </Grid>

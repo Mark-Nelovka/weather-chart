@@ -1,23 +1,27 @@
 import axios from 'axios';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { getCurrentWeather, getHistoryWeatherForCity } from '../../components/API';
+import getCurrentDate from '../../Heplers/getCurrentDate';
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+axios.defaults.baseURL = '';
 
+interface IPropsGetCity {
+    cityForSearch: string
+}
 
-const register = createAsyncThunk('auth/register', async (item, thunkApi) => {
- 
+const getCityWithDetails = createAsyncThunk('weatherDet/getCity', async (item: IPropsGetCity, thunkApi) => {
+    let data = await getCurrentWeather(item);
+    const history = await getHistoryWeatherForCity(item);
+    const currentDate = getCurrentDate(data.sys.country);
+    data = {
+        ...data,
+        currentDate,
+        dtCreated: new Date().getTime(),
+        history
+    }
+    return data;
 });
 
-const login = createAsyncThunk('auth/login', async (item, thunkApi) => {
+const cleanStore = createAction("weatherDet/clean")
 
-});
-
-const logOut = createAsyncThunk('auth/logOut', async userToken => {
-
-});
-
-const refresh = createAsyncThunk('auth/current', async (_, thunkApi) => {
-  
-});
-
-export { register, login, logOut, refresh };
+export { getCityWithDetails, cleanStore };
