@@ -1,5 +1,7 @@
+import { Box } from "@mui/material";
 import { ResizableBox as ReactResizableBox } from "react-resizable";
 import "react-resizable/css/styles.css";
+import { IChartContainerProps } from "./interfaces/Chart";
 
 export default function ResizableBox({
   children,
@@ -8,19 +10,18 @@ export default function ResizableBox({
   resizable = true,
   style = {},
   className = "",
-}) {
+}: IChartContainerProps) {
   return (
-    <div
-      style={{
-        marginLeft: 15,
-        paddingBottom: 20,
+    <Box
+      sx={{
+        marginLeft: 2,
+        paddingBottom: 2,
       }}
     >
-      <div
-        style={{
+      <Box
+        sx={{
           display: "inline-block",
           width: "auto",
-
           background: "white",
           padding: ".5rem",
           borderRadius: "0.5rem",
@@ -29,28 +30,28 @@ export default function ResizableBox({
       >
         {resizable ? (
           <ReactResizableBox width={width} height={height}>
-            <div
-              style={{
+            <Box
+              sx={{
                 width: "100%",
                 height: "100%",
               }}
               className={className}
             >
               {children}
-            </div>
+            </Box>
           </ReactResizableBox>
         ) : (
-          <div
-            style={{
+          <Box
+            sx={{
               width: `${width}px`,
               height: `${height}px`,
             }}
             className={className}
           >
             {children}
-          </div>
+          </Box>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }

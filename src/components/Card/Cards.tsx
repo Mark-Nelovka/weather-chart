@@ -1,16 +1,9 @@
 import { Grid, Box, Paper, Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import { IItems } from "../../redux/weather/weatSlice";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { ICardsProps } from "../../interfaces/Card";
 import s from "./Cards.module.css";
-
-interface ICardsProps {
-  city: IItems;
-  deleteCityHandle: (event: React.MouseEvent) => void;
-  updateCityHandle: (event: React.MouseEvent) => void;
-  pathname: string;
-}
 
 export const Cards = ({
   city,
@@ -54,35 +47,13 @@ export const Cards = ({
             <Typography component={"span"}>
               {Math.floor(city.main.temp_min)}
             </Typography>
-            <Typography
-              sx={{
-                mt: 1,
-                fontFamily: "Raleway",
-                fontWeight: "bold",
-                letterSpacing: 1.2,
-                fontSize: 12,
-                color: "#fff",
-              }}
-            >
-              Min
-            </Typography>
+            <Typography>Min</Typography>
           </Box>
           <Box className={s.containerItemsInfo}>
             <Typography component={"span"}>
               {Math.floor(city.main.temp_max)}
             </Typography>
-            <Typography
-              sx={{
-                mt: 1,
-                fontFamily: "Raleway",
-                fontWeight: "bold",
-                letterSpacing: 1.2,
-                fontSize: 12,
-                color: "#fff",
-              }}
-            >
-              Max
-            </Typography>
+            <Typography>Max</Typography>
           </Box>
         </Box>
         <Typography className={s.currentTimeContainer}>

@@ -1,20 +1,11 @@
-import ResizableBox from "../../RezizableBox";
 import React from "react";
 import { AxisOptions, Chart } from "react-charts";
-
-type MyDatum = { date: string; temp: number };
-
-interface IChartProps {
-  historyData: {
-    main: {
-      temp: number;
-    };
-  }[];
-}
+import ResizableBox from "../../RezizableBox";
+import { IChartProps, MyDatum } from "../../interfaces/Chart";
 
 function MyChart({ historyData }: IChartProps) {
-  console.log(historyData);
   const dataTest: MyDatum[] = [];
+
   historyData.reduce((acc: number, el) => {
     if (acc === 24) {
       return acc;
@@ -51,13 +42,6 @@ function MyChart({ historyData }: IChartProps) {
           data,
           primaryAxis,
           secondaryAxes,
-          // interactionMode: "primary",
-          // getSeriesStyle: (series) => {
-          //   return {
-          //     color: `url(#${series.index % 4})`,
-          //     opacity: 1,
-          //   };
-          // },
           renderSVG: () => (
             <defs>
               <linearGradient id="1" x1="0" x2="0" y1="1" y2="0">

@@ -5,7 +5,6 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-
 }
 
 .cardRain {
@@ -28,10 +27,7 @@
 
 .cardClear {
     position: relative;
-    /* background-image: url("../../images/Clouds-gif.gif"); */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: rgb(104, 204, 251);
     padding: 20px;
 }
 
@@ -39,8 +35,8 @@
     position: absolute;
     top: 7px;
     right: 5px;
-    max-width: 25px;
-    height: 25px;
+    min-width: 25px;
+    min-height: 25px;
     border-radius: 50%;
 }
 
@@ -55,15 +51,6 @@
 
 .deleteButton:hover>svg {
     fill: white;
-}
-
-.cardTitleSun {
-    font-family: "Raleway";
-    font-size: 28px;
-    font-weight: bold;
-    letter-spacing: 1.2;
-    color: #000;
-    text-align: center;
 }
 
 .cardTitle {
@@ -83,7 +70,6 @@
     color: #fff;
     text-align: center;
     margin-bottom: 4px;
-
 }
 
 .containerInfo {
@@ -101,21 +87,30 @@
 
 .containerItemsInfo>span {
     font-family: "Raleway";
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
     color: white;
-
     text-align: center;
     width: 50px;
 }
 
-.currentTimeContainer {
+.containerItemsInfo>p {
     font-family: "Raleway";
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: white;
     text-align: center;
-    margin-bottom: 20px;
+    margin-top: 1px;
+    letter-spacing: 1.4px;
+}
+
+.currentTimeContainer {
+    font-family: "Raleway";
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px !important;
 }
 
 .containerButtonInfo {

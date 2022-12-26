@@ -1,3 +1,10 @@
+.sectionWeatherDet {
+    background-color: #ddecf9;
+    height: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
 .detailCardHeader {
     display: flex;
     align-items: center;

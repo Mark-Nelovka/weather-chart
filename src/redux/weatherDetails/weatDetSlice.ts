@@ -1,58 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IStateWeatherDetails, IItemsWeatherDetails } from '../../interfaces/State';
 import { getCityWithDetails, cleanStore } from "./weatDetOperations";
 
-export interface IItems {
-  id: number,
-  coord: {
-    lat: number,
-    lon: number
-  },
-  weather: {
-    main: string
-  }[],
-  main: {
-    temp: number,
-    feels_like: number,
-    temp_min: number,
-    temp_max: number,
-    pressure: number,
-    humidity: number,
-    visibility: number
-  },
-  wind: {
-    speed: number,
-    deg: number,
-    gust: number
-  },
-  clouds: {
-    all: number
-  },
-  sys: {
-    country: string
-  },
-  name: string,
-  currentDate: {
-    day: number,
-    mounth: number,
-    year: number,
-    hours: number,
-    minutes: number,
-    dayInWeek: string
-  }
-  dtCreated: number,
-  history: {
-    main: {
-      temp: number
-    }
-  }[];
-}
 
-export interface IState {
-  weatherDetails: IItems[]
-}
 
-export const initialState: IState = {
-  weatherDetails: []
+export const initialState: IStateWeatherDetails = {
+  weatherDetails: [],
+  pending: false,
+  rejected: false
 };
 
 const authSlice = createSlice({
@@ -60,10 +15,23 @@ const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getCityWithDetails.fulfilled, (state: IState, action: PayloadAction<IItems>) => {
+
+    
+    builder.addCase(getCityWithDetails.pending, (state: IStateWeatherDetails, _) => {
+      state.pending = true;
+      });
+    builder.addCase(getCityWithDetails.fulfilled, (state: IStateWeatherDetails, action: PayloadAction<IItemsWeatherDetails>) => {
       state.weatherDetails = [action.payload];
+      state.pending = false;
+      state.rejected = false;
     });
-    builder.addCase(cleanStore, (state: IState, action: PayloadAction) => {
+    builder.addCase(getCityWithDetails.rejected, (state: IStateWeatherDetails, _) => {
+      state.pending = false;
+      state.rejected = true;
+    });
+    
+    
+    builder.addCase(cleanStore, (state: IStateWeatherDetails, action: PayloadAction) => {
       state.weatherDetails = [];
     });
   },

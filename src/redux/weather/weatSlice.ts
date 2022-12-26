@@ -1,53 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getCity, updateTimeAllCity, updateCity, deleteCity } from "./weatOperations";
+import { IItemsWeather, IStateWeather } from '../../interfaces/State';
 
-export interface IItems {
-  id: number,
-  coord: {
-    lat: number,
-    lon: number
-  },
-  weather: {
-    main: string
-  }[],
-  main: {
-    temp: number,
-    feels_like: number,
-    temp_min: number,
-    temp_max: number,
-    pressure: number,
-    humidity: number,
-    visibility: number
-  },
-  wind: {
-    speed: number,
-    deg: number,
-    gust: number
-  },
-  clouds: {
-    all: number
-  },
-  sys: {
-    country: string
-  },
-  name: string,
-  currentDate: {
-    day: number,
-    mounth: number,
-    year: number,
-    hours: number,
-    minutes: number,
-    dayInWeek: string
-  }
-  dtCreated: number
-}
 
-export interface IState {
-  weather: IItems[]
-}
-
-export const initialState: IState = {
-    weather: []
+export const initialState: IStateWeather = {
+  weather: [],
+  pending: false,
+  rejected: false
 };
 
 const authSlice = createSlice({
@@ -55,31 +14,84 @@ const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getCity.fulfilled, (state: IState, action: PayloadAction<IItems>) => {
+
+
+    builder.addCase(getCity.pending, (state: IStateWeather, _) => {
+      state.pending = true;
+    });
+     builder.addCase(getCity.fulfilled, (state: IStateWeather, action: PayloadAction<IItemsWeather>) => {
       const repeteCity = state.weather.find(city => city.id === action.payload.id);
-      if (repeteCity) {
+       if (repeteCity) {
+         state.pending = false;
         return;
       }
-      state.weather = [...state.weather, action.payload];
+       state.weather = [...state.weather, action.payload];
+       state.pending = false;
+       state.rejected = false;
+     });
+    builder.addCase(getCity.rejected, (state: IStateWeather, _) => {
+      state.pending = false;
+      state.rejected = true;
     });
-    builder.addCase(updateTimeAllCity.fulfilled, (state: IState, action: PayloadAction<IItems[]>) => {
+
+
+    builder.addCase(updateTimeAllCity.pending, (state: IStateWeather, _) => {
+      state.pending = true;
+    });
+    builder.addCase(updateTimeAllCity.fulfilled, (state: IStateWeather, action: PayloadAction<IItemsWeather[]>) => {
       action.payload.forEach((city) => {
         const findIndexUpdateCity = state.weather.findIndex(el => el.id === city.id);
         if (findIndexUpdateCity > -1) {
           state.weather.splice(findIndexUpdateCity, 1, city)
+          state.pending = false;
+          state.rejected = false;
+          return;
         }
+        state.pending = false;
+        state.rejected = true;
       })
     });
-    builder.addCase(updateCity.fulfilled, (state: IState, action: PayloadAction<IItems>) => {
+    builder.addCase(updateTimeAllCity.rejected, (state: IStateWeather, _) => {
+      state.pending = false;
+      state.rejected = true;
+    });
+
+
+    builder.addCase(updateCity.pending, (state: IStateWeather, _) => {
+      state.pending = true;
+    });
+    builder.addCase(updateCity.fulfilled, (state: IStateWeather, action: PayloadAction<IItemsWeather>) => {
       const findCityUpdate = state.weather.findIndex(el => el.id === action.payload.id);
       if (findCityUpdate > -1) {
         state.weather.splice(findCityUpdate, 1, action.payload)
+        state.pending = false;
+        state.rejected = false;
+        return;
       }
+      state.pending = false;
+      state.rejected = true;
     });
-    builder.addCase(deleteCity.fulfilled, (state: IState, action: PayloadAction<string>) => {
+    builder.addCase(updateCity.rejected, (state: IStateWeather, _) => {
+      state.pending = false;
+      state.rejected = true;
+    });
+
+    
+    builder.addCase(deleteCity.pending, (state: IStateWeather, _) => {
+      state.pending = true;
+    });
+    builder.addCase(deleteCity.fulfilled, (state: IStateWeather, action: PayloadAction<string>) => {
       const filteredCity = state.weather.filter(el => el.id !== +action.payload);
       state.weather = filteredCity;
-  });
+      state.pending = false;
+      state.rejected = false;
+    });
+    builder.addCase(deleteCity.rejected, (state: IStateWeather, _) => {
+      state.pending = false;
+      state.rejected = true;
+    });
+    
+    
   },
   
 });

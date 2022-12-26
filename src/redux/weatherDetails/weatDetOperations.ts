@@ -1,25 +1,32 @@
-import axios from 'axios';
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { getCurrentWeather, getHistoryWeatherForCity } from '../../components/API';
+import axios from "axios";
+import { getHistoryWeatherForCity } from '../../components/API';
 import getCurrentDate from '../../Heplers/getCurrentDate';
+import { IPropsGetCity } from "../../interfaces/Operations";
 
-axios.defaults.baseURL = '';
+axios.defaults.baseURL = "https://api.openweathermap.org/data/2.5/weather";
 
-interface IPropsGetCity {
-    cityForSearch: string
-}
+const { REACT_APP_API_KEY } = process.env;
 
-const getCityWithDetails = createAsyncThunk('weatherDet/getCity', async (item: IPropsGetCity, thunkApi) => {
-    let data = await getCurrentWeather(item);
-    const history = await getHistoryWeatherForCity(item);
-    const currentDate = getCurrentDate(data.sys.country);
-    data = {
-        ...data,
-        currentDate,
-        dtCreated: new Date().getTime(),
-        history
+const getCityWithDetails = createAsyncThunk('weatherDet/getCity', async ({cityForSearch}: IPropsGetCity, thunkApi) => {
+    try {
+        const { data } = await axios.get(`?q=${cityForSearch}&appid=${REACT_APP_API_KEY}&units=metric`);
+
+        const history = await getHistoryWeatherForCity({ cityForSearch })
+        
+        const currentDate = getCurrentDate(data.sys.country);
+
+        let changedData = {
+            ...data,
+            currentDate,
+            dtCreated: new Date().getTime(),
+            history
+        }
+            
+        return changedData;
+    } catch (error) {
+        return thunkApi.rejectWithValue(error);
     }
-    return data;
 });
 
 const cleanStore = createAction("weatherDet/clean")
