@@ -30,7 +30,7 @@ export const WeatherHomePage = () => {
     if (dt.length > 0 && !doUpdateAll) {
       dispatch(updateTimeAllCity({ itemAll: item.weather, dt }));
     }
-    if (savedItemInDetPage[0]) {
+    if (savedItemInDetPage.length > 0) {
       dispatch(cleanStore());
     }
   }, [dispatch, item, doUpdateAll, savedItemInDetPage]);
