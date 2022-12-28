@@ -16,7 +16,9 @@ export default function ErrorPage() {
         >
           Back to home page
         </Button>
-        <img src={ErrorImage} alt="Error" />
+        <Box>
+          <img src={ErrorImage} alt="Error" width="400" />
+        </Box>
       </Box>
     </>
   );

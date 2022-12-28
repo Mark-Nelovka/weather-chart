@@ -1,8 +1,6 @@
 import { IItemsWeather } from "./State";
 
 export interface ICardsProps {
-  city: IItemsWeather;
-  deleteCityHandle: (event: React.MouseEvent) => void;
+  item: IItemsWeather[];
   updateCityHandle: (event: React.MouseEvent) => void;
-  pathname: string;
 }

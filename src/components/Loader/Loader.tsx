@@ -4,7 +4,7 @@ import s from "./Loader.module.css";
 
 export const Loader = () => {
   return (
-    <Box className={s.loaderContainer}>
+    <Box data-testid="loader" className={s.loaderContainer}>
       <HashLoader color={"#4a56e2"} size="100px" />
     </Box>
   );

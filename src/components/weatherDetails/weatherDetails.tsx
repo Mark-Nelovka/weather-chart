@@ -3,10 +3,7 @@ import { Container } from "@mui/system";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
-import {
-  getCityWithDetails,
-  cleanStore,
-} from "../../redux/weatherDetails/weatDetOperations";
+import { getCityWithDetails } from "../../redux/weatherDetails/weatDetOperations";
 import MyChart from "../Chart/Chart";
 import Loader from "../Loader";
 import s from "./weatDet.module.css";
@@ -24,9 +21,6 @@ export const WeatherDetails = () => {
 
   useEffect(() => {
     dispatch(getCityWithDetails({ cityForSearch: params.city! }));
-    return () => {
-      dispatch(cleanStore());
-    };
   }, [params, dispatch]);
 
   return (
