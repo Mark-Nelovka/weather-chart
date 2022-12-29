@@ -5,9 +5,11 @@ import { IItemsWeather } from '../../interfaces/State';
 import { IPropsGetCity, IPropsUpdateAll } from "../../interfaces/Operations";
 import Notiflix from "notiflix";
 
-axios.defaults.baseURL = "https://api.openweathermap.org/data/2.5/weather";
+const { REACT_APP_API_KEY, REACT_APP_URL_API } = process.env;
 
-const { REACT_APP_API_KEY } = process.env;
+axios.defaults.baseURL = `${REACT_APP_URL_API}`;
+
+
 
 const getCity = createAsyncThunk('weather/getCity', async ({cityForSearch}: IPropsGetCity, thunkApi) => {
         try {

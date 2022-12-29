@@ -32,6 +32,7 @@ describe("Weather home page", () => {
     render(<WeatherHomePage />);
     const input = screen.getByLabelText("Search city");
     const buttonForSubmit = screen.getByText("Show");
+
     expect(input).toHaveValue("");
     expect(buttonForSubmit).toBeDisabled();
 
