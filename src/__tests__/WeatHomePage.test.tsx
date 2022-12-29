@@ -7,7 +7,7 @@ import { WeatherTests } from "../interfaces/WeatherTest";
 describe("Weather home page", () => {
   test("Show loader at time Request API! Check resolve answer", async () => {
     render(<WeatherHomePage />);
-    const input = screen.getByTestId(WeatherTests.searchInput);
+    const input = screen.getByLabelText("Search city");
     const buttonForSubmit = screen.getByRole("button");
     expect(input).toHaveValue("");
     expect(buttonForSubmit).toBeDisabled();
@@ -30,7 +30,7 @@ describe("Weather home page", () => {
 
   test("Show error page! Fetch API with rejected if write incorrect data in input", async () => {
     render(<WeatherHomePage />);
-    const input = screen.getByTestId(WeatherTests.searchInput);
+    const input = screen.getByLabelText("Search city");
     const buttonForSubmit = screen.getByText("Show");
     expect(input).toHaveValue("");
     expect(buttonForSubmit).toBeDisabled();

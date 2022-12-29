@@ -8,8 +8,8 @@ describe("Form", () => {
   test("Check form", async () => {
     render(<FormSearchCity />);
 
-    const input = screen.getByTestId(WeatherTests.searchInput);
-    const buttonForSubmit = screen.getByRole("button");
+    const input = screen.getByLabelText("Search city");
+    const buttonForSubmit = screen.getByTestId("button-form-submit");
 
     expect(input).toHaveValue("");
     expect(buttonForSubmit).toBeDisabled();
@@ -27,7 +27,7 @@ describe("Form", () => {
   test("Validation form: data number", async () => {
     render(<FormSearchCity />);
 
-    const input = screen.getByTestId(WeatherTests.searchInput);
+    const input = screen.getByLabelText("Search city");
     const buttonForSubmit = screen.getByRole("button");
 
     expect(input).toHaveValue("");
@@ -35,10 +35,8 @@ describe("Form", () => {
 
     userEvent.type(input, "123");
 
-    expect(input).toHaveValue("123");
-    expect(buttonForSubmit).not.toBeDisabled();
-
-    userEvent.click(buttonForSubmit);
+    expect(input).toHaveValue("");
+    expect(buttonForSubmit).toBeDisabled();
 
     const notification = screen.getByTitle("Latin letters allowed");
 
@@ -49,7 +47,7 @@ describe("Form", () => {
   test("Validation form: space", async () => {
     render(<FormSearchCity />);
 
-    const input = screen.getByTestId(WeatherTests.searchInput);
+    const input = screen.getByLabelText("Search city");
     const buttonForSubmit = screen.getByRole("button");
 
     expect(input).toHaveValue("");
@@ -57,10 +55,8 @@ describe("Form", () => {
 
     userEvent.type(input, " ");
 
-    expect(input).toHaveValue(" ");
-    expect(buttonForSubmit).not.toBeDisabled();
-
-    userEvent.click(buttonForSubmit);
+    expect(input).toHaveValue("");
+    expect(buttonForSubmit).toBeDisabled();
 
     const notification = screen.getByTitle("Latin letters allowed");
 
@@ -71,7 +67,7 @@ describe("Form", () => {
   test("Validation form: data in russian language", async () => {
     render(<FormSearchCity />);
 
-    const input = screen.getByTestId(WeatherTests.searchInput);
+    const input = screen.getByLabelText("Search city");
     const buttonForSubmit = screen.getByRole("button");
 
     expect(input).toHaveValue("");
@@ -79,10 +75,8 @@ describe("Form", () => {
 
     userEvent.type(input, "Киев");
 
-    expect(input).toHaveValue("Киев");
-    expect(buttonForSubmit).not.toBeDisabled();
-
-    userEvent.click(buttonForSubmit);
+    expect(input).toHaveValue("");
+    expect(buttonForSubmit).toBeDisabled();
 
     const notification = screen.getByTitle("Latin letters allowed");
 
@@ -93,7 +87,7 @@ describe("Form", () => {
   test("Validation form: data in ukrain language", async () => {
     render(<FormSearchCity />);
 
-    const input = screen.getByTestId(WeatherTests.searchInput);
+    const input = screen.getByLabelText("Search city");
     const buttonForSubmit = screen.getByRole("button");
 
     expect(input).toHaveValue("");
@@ -101,10 +95,8 @@ describe("Form", () => {
 
     userEvent.type(input, "Київ");
 
-    expect(input).toHaveValue("Київ");
-    expect(buttonForSubmit).not.toBeDisabled();
-
-    userEvent.click(buttonForSubmit);
+    expect(input).toHaveValue("");
+    expect(buttonForSubmit).toBeDisabled();
 
     const notification = screen.getByTitle("Latin letters allowed");
 
@@ -115,7 +107,7 @@ describe("Form", () => {
   test("Validation form: data symbols", async () => {
     render(<FormSearchCity />);
 
-    const input = screen.getByTestId(WeatherTests.searchInput);
+    const input = screen.getByLabelText("Search city");
     const buttonForSubmit = screen.getByRole("button");
 
     expect(input).toHaveValue("");
@@ -123,10 +115,8 @@ describe("Form", () => {
 
     userEvent.type(input, ">>>");
 
-    expect(input).toHaveValue(">>>");
-    expect(buttonForSubmit).not.toBeDisabled();
-
-    userEvent.click(buttonForSubmit);
+    expect(input).toHaveValue("");
+    expect(buttonForSubmit).toBeDisabled();
 
     const notification = screen.getByTitle("Latin letters allowed");
 
@@ -135,20 +125,16 @@ describe("Form", () => {
 
     userEvent.type(input, "...");
 
-    expect(input).toHaveValue("...");
-    expect(buttonForSubmit).not.toBeDisabled();
-
-    userEvent.click(buttonForSubmit);
+    expect(input).toHaveValue("");
+    expect(buttonForSubmit).toBeDisabled();
 
     expect(input).toHaveValue("");
     expect(notification).toBe(notification);
 
     userEvent.type(input, "???");
 
-    expect(input).toHaveValue("???");
-    expect(buttonForSubmit).not.toBeDisabled();
-
-    userEvent.click(buttonForSubmit);
+    expect(input).toHaveValue("");
+    expect(buttonForSubmit).toBeDisabled();
 
     expect(input).toHaveValue("");
     expect(notification).toBe(notification);

@@ -8,7 +8,7 @@ describe("Card", () => {
   test("Delete card", async () => {
     render(<WeatherHomePage />);
 
-    const input = screen.getByTestId(WeatherTests.searchInput);
+    const input = screen.getByLabelText("Search city");
     const buttonForSubmit = screen.getByRole("button");
     expect(input).toHaveValue("");
     expect(buttonForSubmit).toBeDisabled();

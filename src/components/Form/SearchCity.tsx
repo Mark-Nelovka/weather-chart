@@ -1,23 +1,32 @@
-import { Box, Button, FormControl } from "@mui/material";
+import { Box, Button, FormControl, TextField } from "@mui/material";
+import Notiflix from "notiflix";
 import { useState } from "react";
 import { useAppDispatch } from "../../redux/hook";
 import { getCity } from "../../redux/weather/weatOperations";
 import s from "./Form.module.css";
 
 export const FormSearchCity = () => {
-  const [cityForSearch, setCity] = useState<string>("");
+  const [cityForSearch, setCityForSearch] = useState<string>("");
+  const [cityForSearchError, setCityForSearchError] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
 
   const getWeatherCity = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(getCity({ cityForSearch }));
-    setCity("");
+    setCityForSearch("");
   };
 
   const changeInputValue = (event: React.ChangeEvent) => {
     const { value } = event.target as HTMLInputElement;
-    setCity(value);
+    const regExp = "^[a-zA-Z]";
+    if (!value.search(regExp) || cityForSearch.length === 1) {
+      setCityForSearch(value);
+      setCityForSearchError(false);
+      return;
+    }
+    Notiflix.Notify.info("Latin letters allowed");
+    setCityForSearchError(true);
   };
 
   return (
@@ -27,12 +36,13 @@ export const FormSearchCity = () => {
         className={s.searchForm}
         onSubmit={getWeatherCity}
       >
-        <Box
-          component={"input"}
+        <TextField
+          error={cityForSearchError ? true : false}
+          id="outlined-basic"
+          label="Search city"
           data-testid="search-input-city"
-          type={"text"}
+          variant="outlined"
           title="Latin letters allowed"
-          pattern="^[a-zA-Zs]+$"
           value={cityForSearch}
           onChange={changeInputValue}
         />
@@ -40,6 +50,7 @@ export const FormSearchCity = () => {
           className={s.searchButtonCity}
           variant="contained"
           type="submit"
+          data-testid="button-form-submit"
           disabled={cityForSearch.length > 0 ? false : true}
         >
           Show
