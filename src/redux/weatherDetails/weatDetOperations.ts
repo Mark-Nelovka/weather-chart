@@ -3,6 +3,7 @@ import axios from "axios";
 import { getHistoryWeatherForCity } from '../../components/API';
 import getCurrentDate from '../../Heplers/getCurrentDate';
 import { IPropsGetCity } from "../../interfaces/Operations";
+import Notiflix from "notiflix"
 
 axios.defaults.baseURL = "https://api.openweathermap.org/data/2.5/weather";
 
@@ -25,6 +26,7 @@ const getCityWithDetails = createAsyncThunk('weatherDet/getCity', async ({cityFo
             
         return changedData;
     } catch (error) {
+        Notiflix.Notify.failure("Ooops, something is wrong. Please, try again later")
         return thunkApi.rejectWithValue(error);
     }
 });

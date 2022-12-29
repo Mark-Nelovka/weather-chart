@@ -4,17 +4,15 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { getCityWithDetails } from "../../redux/weatherDetails/weatDetOperations";
-import MyChart from "../Chart/Chart";
-import Loader from "../Loader";
+import MyChart from "../../components/Chart/Chart";
+import Loader from "../../components/Loader";
 import s from "./weatDet.module.css";
-import ErrorPage from "../../pages/ErrorPage/ErrorPage";
 
-export const WeatherDetails = () => {
+export default function WeatherDetailsPage() {
   const cityWithState = useAppSelector(
     (state) => state.weatherDetails.weatherDetails
   );
   const pending = useAppSelector((state) => state.weatherDetails.pending);
-  const rejected = useAppSelector((state) => state.weatherDetails.rejected);
 
   const params = useParams();
   const dispatch = useAppDispatch();
@@ -28,9 +26,7 @@ export const WeatherDetails = () => {
       <Container>
         <Card>
           {pending && <Loader />}
-          {rejected && <ErrorPage />}
           {!pending &&
-            !rejected &&
             cityWithState.length > 0 &&
             cityWithState.map((state) => {
               return (
@@ -94,4 +90,4 @@ export const WeatherDetails = () => {
       </Container>
     </section>
   );
-};
+}

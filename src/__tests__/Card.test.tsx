@@ -1,23 +1,13 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import WeatherHomePage from "../components/weatherHome";
-import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import store, { persistor } from "../redux/store";
-import { PersistGate } from "redux-persist/integration/react";
+import { render } from "../test-utils";
+import WeatherHomePage from "../pages/WeatherHome/weatherHomePage";
 import { WeatherTests } from "../interfaces/WeatherTest";
 
 describe("Card", () => {
   test("Delete card", async () => {
-    render(
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <BrowserRouter>
-            <WeatherHomePage />
-          </BrowserRouter>
-        </PersistGate>
-      </Provider>
-    );
+    render(<WeatherHomePage />);
+
     const input = screen.getByTestId(WeatherTests.searchInput);
     const buttonForSubmit = screen.getByRole("button");
     expect(input).toHaveValue("");

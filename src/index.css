@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+  --basicFont: "Raleway";
+  --fontWeight: bold;
+  --white: #fff;
+  --black: #000;
+}

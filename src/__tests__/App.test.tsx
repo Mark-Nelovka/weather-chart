@@ -1,14 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import { render } from "../test-utils";
 import App from "../App";
-import { BrowserRouter } from "react-router-dom";
 
 describe("App", () => {
   test("Show header", async () => {
-    render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    );
+    render(<App />);
     const header = await screen.findByText(
       /Welcome to weather website | Thanks that remember us/i
     );

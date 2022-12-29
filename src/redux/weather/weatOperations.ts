@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import getCurrentDate from '../../Heplers/getCurrentDate';
 import { IItemsWeather } from '../../interfaces/State';
 import { IPropsGetCity, IPropsUpdateAll } from "../../interfaces/Operations";
+import Notiflix from "notiflix";
 
 axios.defaults.baseURL = "https://api.openweathermap.org/data/2.5/weather";
 
@@ -19,9 +20,9 @@ const getCity = createAsyncThunk('weather/getCity', async ({cityForSearch}: IPro
             currentDate,
             dtCreated: new Date().getTime()
             }
-            console.log(data)
             return changedData;
         } catch (error) {
+        Notiflix.Notify.failure(`Sorry, city with name ${cityForSearch} not found`);
         return thunkApi.rejectWithValue(error);
     }
 });
@@ -41,6 +42,7 @@ const updateTimeAllCity = createAsyncThunk("weather/updateAll", async ({ itemAll
                 }
             cityForUpdate.push(changedData);
             } catch (error) {
+            Notiflix.Notify.failure("Ooops, something is wrong. Please, try again later");
                return thunkApi.rejectWithValue(error);
             }
         }
@@ -63,12 +65,13 @@ const updateCity = createAsyncThunk("weather/update", async (id: string, thunkAp
             }
 
             return changedData;
-   } catch (error) {
+    } catch (error) {
+       Notiflix.Notify.failure("Ooops, something is wrong. Please, try again later");
        return thunkApi.rejectWithValue(error);
    }
 })
 
-const deleteCity = createAsyncThunk("weather/delete", async (id: string, thunkApi) => {
+const deleteCity = createAsyncThunk("weather/delete", (id: string, _) => {
     return id;
 })
 

@@ -31,6 +31,8 @@ export const FormSearchCity = () => {
           component={"input"}
           data-testid="search-input-city"
           type={"text"}
+          title="Latin letters allowed"
+          pattern="^[a-zA-Zs]+$"
           value={cityForSearch}
           onChange={changeInputValue}
         />

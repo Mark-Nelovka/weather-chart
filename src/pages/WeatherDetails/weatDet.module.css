@@ -1,6 +1,6 @@
 .sectionWeatherDet {
     background-color: #ddecf9;
-    height: 100%;
+    min-height: 100vh;
     padding-top: 20px;
     padding-bottom: 20px;
 }
@@ -14,11 +14,11 @@
 }
 
 .detailCardHeader > p {
-    font-family: "Raleway";
+    font-family: var(--basicFont);
     font-size: 24px;
-    font-weight: bold;
+    font-weight: var(--fontWeight);
     letter-spacing: 1.1;
-    color: #fff;
+    color: var(--white);
 }
 
 .globalContainer {
@@ -38,21 +38,21 @@ background-image: radial-gradient(circle at 50% -20.71%, #bae0e6 0, #bbe0e9 6.25
 }
 
 .detailContainerInfo > p {
-    font-family: "Raleway";
+    font-family: var(--basicFont);
     font-size: 20px;
-    font-weight: bold;
+    font-weight: var(--fontWeight);
     line-height: 1.8;
-    color: #000;
+    color: var(--black);
 }
 
 .detailContainerCenter > p {
         text-align: center;
-    font-family: "Raleway";
+    font-family: var(--basicFont);
     font-size: 34px;
-    font-weight: bold;
+    font-weight: var(--fontWeight);
     letter-spacing: 2px;
     line-height: 1.8;
-    color: #000;
+    color: var(--black);
     margin-top: 10px;
     margin-bottom: 30px;
 }
@@ -74,11 +74,11 @@ background-image: radial-gradient(circle at 50% -20.71%, #bae0e6 0, #bbe0e9 6.25
 }
 
 .timeContainer>div > span  {
-    font-family: "Raleway";
+    font-family: var(--basicFont);
     font-size: 20px;
-    font-weight: bold;
+    font-weight: var(--fontWeight);
     letter-spacing: 1.1px;
-    color: #000;
+    color: var(--black);
     display: inline-block;
 }
 
@@ -94,7 +94,7 @@ background-image: radial-gradient(circle at 50% -20.71%, #bae0e6 0, #bbe0e9 6.25
 
 .boxMoon {
     width: 60px;
-        height: 40px;
+    height: 40px;
     background-image: url("../../images/moon-gif.gif");
     background-position: center;
     background-repeat: no-repeat;

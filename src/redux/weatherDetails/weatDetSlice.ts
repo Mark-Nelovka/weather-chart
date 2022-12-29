@@ -7,7 +7,6 @@ import { getCityWithDetails, cleanStore } from "./weatDetOperations";
 export const initialState: IStateWeatherDetails = {
   weatherDetails: [],
   pending: false,
-  rejected: false
 };
 
 const authSlice = createSlice({
@@ -20,18 +19,17 @@ const authSlice = createSlice({
     builder.addCase(getCityWithDetails.pending, (state: IStateWeatherDetails, _) => {
       state.pending = true;
       });
-    builder.addCase(getCityWithDetails.fulfilled, (state: IStateWeatherDetails, action: PayloadAction<IItemsWeatherDetails>) => {
-      state.weatherDetails = [action.payload];
+    builder.addCase(getCityWithDetails.fulfilled, (state: IStateWeatherDetails, {payload}: PayloadAction<IItemsWeatherDetails>) => {
+      state.weatherDetails = [payload];
       state.pending = false;
-      state.rejected = false;
     });
     builder.addCase(getCityWithDetails.rejected, (state: IStateWeatherDetails, _) => {
       state.pending = false;
-      state.rejected = true;
+      return state;
     });
     
     
-    builder.addCase(cleanStore, (state: IStateWeatherDetails, action: PayloadAction) => {
+    builder.addCase(cleanStore, (state: IStateWeatherDetails, _) => {
       state.weatherDetails = [];
     });
   },

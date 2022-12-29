@@ -8,17 +8,15 @@ import {
 import { cleanStore } from "../../redux/weatherDetails/weatDetOperations";
 import getCurrentTime from "../../Heplers/getCurrentTime";
 import React, { useState, useEffect } from "react";
-import FormSearchCity from "../Form";
-import Cards from "../Card";
-import Loader from "../Loader";
+import FormSearchCity from "../../components/Form";
+import Cards from "../../components/Card";
+import Loader from "../../components/Loader";
 import s from "./weatHome.module.css";
-import ErrorPage from "../../pages/ErrorPage/ErrorPage";
 
-export const WeatherHomePage = () => {
+export default function WeatherHomePage() {
   const [doUpdateAll, setDoUpdateAll] = useState<boolean>(false);
   const item = useAppSelector((state) => state.weather);
   const pending = useAppSelector((state) => state.weather.pending);
-  const rejected = useAppSelector((state) => state.weather.rejected);
   const savedItemInDetPage = useAppSelector(
     (state) => state.weatherDetails.weatherDetails
   );
@@ -44,12 +42,12 @@ export const WeatherHomePage = () => {
   return (
     <>
       <section className={s.sectionHomePage}>
-        {!rejected && <FormSearchCity />}
+        <FormSearchCity />
         <Container>
           <Box sx={{ width: "100%" }}>
             <Grid container rowSpacing={2} columnSpacing={{ md: 5 }}>
               {pending && <Loader />}
-              {!pending && !rejected && item.weather.length > 0 && (
+              {!pending && item.weather.length > 0 && (
                 <Cards
                   updateCityHandle={updateCityHandle}
                   item={item.weather}
@@ -59,7 +57,6 @@ export const WeatherHomePage = () => {
           </Box>
         </Container>
       </section>
-      {rejected && <ErrorPage />}
     </>
   );
-};
+}

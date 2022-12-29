@@ -42,7 +42,6 @@ export interface IItemsWeather {
 export interface IStateWeather {
     weather: IItemsWeather[],
     pending: boolean,
-    rejected: boolean
 }
 
 export interface IItemsWeatherDetails {
@@ -94,5 +93,4 @@ export interface IItemsWeatherDetails {
 export interface IStateWeatherDetails {
   weatherDetails: IItemsWeatherDetails[],
   pending: boolean,
-  rejected: boolean
 }

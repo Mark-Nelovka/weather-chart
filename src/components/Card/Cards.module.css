@@ -50,24 +50,24 @@
 }
 
 .deleteButton:hover>svg {
-    fill: white;
+    fill: var(--white);
 }
 
 .cardTitle {
-    font-family: "Raleway";
+    font-family: var(--basicFont);
     font-size: 28px;
-    font-weight: bold;
+    font-weight: var(--fontWeight);
     letter-spacing: 1.2px;
-    color: #fff;
+    color: var(--white);
     text-align: center;
 }
 
 .cardSubTitle {
-    font-family: "Raleway";
+    font-family: var(--basicFont);
     font-size: 18px;
-    font-weight: bold;
+    font-weight: var(--fontWeight);
     letter-spacing: 1.1px;
-    color: #fff;
+    color: var(--white);
     text-align: center;
     margin-bottom: 4px;
 }
@@ -86,31 +86,31 @@
 }
 
 .containerItemsInfo>span {
-    font-family: "Raleway";
+    font-family: var(--basicFont);
     font-size: 26px;
-    font-weight: bold;
-    color: white;
+    font-weight: var(--fontWeight);
+    color: var(--white);
     text-align: center;
     width: 50px;
 }
 
 .containerItemsInfo>p {
-    font-family: "Raleway";
+    font-family: var(--basicFont);
     font-size: 18px;
-    font-weight: bold;
-    color: white;
+    font-weight: var(--fontWeight);
+    color: var(--white);
     text-align: center;
     margin-top: 1px;
     letter-spacing: 1.4px;
 }
 
 .currentTimeContainer {
-    font-family: "Raleway";
+    font-family: var(--basicFont);
     font-size: 18px;
-    font-weight: bold;
-    color: white;
+    font-weight: var(--fontWeight);
+    color: var(--white);
     text-align: center;
-    margin-bottom: 20px !important;
+    margin-bottom: 20px;
 }
 
 .containerButtonInfo {
@@ -123,9 +123,9 @@
 }
 
 .containerButtonInfo>a {
-    color: #fff;
+    color: var(--white);
     text-decoration: none;
-    font-family: "Raleway";
+    font-family: var(--basicFont);
     font-size: 12px;
     font-weight: normal;
 }

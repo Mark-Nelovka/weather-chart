@@ -75,6 +75,7 @@ export const Cards = ({ updateCityHandle, item }: ICardsProps) => {
                 <Box className={s.containerButtonInfo}>
                   <Button
                     onClick={updateCityHandle}
+                    data-testid="update-card-button"
                     id={city.name}
                     variant="contained"
                   >

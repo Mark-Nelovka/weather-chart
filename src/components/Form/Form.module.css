@@ -12,9 +12,9 @@
 }
 
 .searchButtonCity {
-    font-family: "Raleway";
+    font-family: var(--basicFont);
     font-size: 12px;
-    font-weight: bold;
+    font-weight: var(--fontWeight);
     margin-left: 15px;
-    color: #fff;
+    color: var(--white);
 }

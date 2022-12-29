@@ -4,15 +4,16 @@ import { Provider } from "react-redux";
 import store, { persistor } from "./redux/store";
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
-import { MemoryRouter } from "react-router-dom";
 
-const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
+const GlobalProvidersForTests = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <MemoryRouter initialEntries={["/weather-chart"]}>
-          {children}
-        </MemoryRouter>
+        <BrowserRouter>{children}</BrowserRouter>
       </PersistGate>
     </Provider>
   );
@@ -21,7 +22,7 @@ const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
 const customRender = (
   ui: ReactElement,
   options?: Omit<RenderOptions, "wrapper">
-) => render(ui, { wrapper: AllTheProviders, ...options });
+) => render(ui, { wrapper: GlobalProvidersForTests, ...options });
 
 export * from "@testing-library/react";
 export { customRender as render };

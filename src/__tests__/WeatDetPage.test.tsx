@@ -1,24 +1,13 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import WeatherHomePage from "../components/weatherHome";
-import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import store, { persistor } from "../redux/store";
-import { PersistGate } from "redux-persist/integration/react";
-import WeatherDetails from "../components/weatherDetails";
+import { render } from "../test-utils";
+import WeatherHomePage from "../pages/WeatherHome/weatherHomePage";
+import WeatherDetailsPage from "../pages/WeatherDetails/weatherDetails";
 import { WeatherTests } from "../interfaces/WeatherTest";
 
 describe("Weather details page", () => {
   test("Check title", async () => {
-    render(
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <BrowserRouter>
-            <WeatherHomePage />
-          </BrowserRouter>
-        </PersistGate>
-      </Provider>
-    );
+    render(<WeatherHomePage />);
     const input = screen.getByTestId(WeatherTests.searchInput);
     const buttonForSubmit = screen.getByRole("button");
     expect(input).toHaveValue("");
@@ -42,15 +31,7 @@ describe("Weather details page", () => {
     const moreInfoButton = screen.getByText("More info");
     userEvent.click(moreInfoButton);
 
-    render(
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <BrowserRouter>
-            <WeatherDetails />
-          </BrowserRouter>
-        </PersistGate>
-      </Provider>
-    );
+    render(<WeatherDetailsPage />);
 
     const loaderInSecondPage = screen.getByTestId("loader");
     expect(loaderInSecondPage).toBeInTheDocument();
