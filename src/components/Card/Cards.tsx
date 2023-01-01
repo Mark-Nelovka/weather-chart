@@ -81,7 +81,7 @@ export const Cards = ({ updateCityHandle, item }: ICardsProps) => {
                   >
                     {<AutorenewIcon id={String(city.id)} />}
                   </Button>
-                  <Link to={`${pathname}${city.name}`} state={city}>
+                  <Link to={`${pathname}/${city.name}`} state={city}>
                     <Button variant="contained">More info</Button>
                   </Link>
                 </Box>
